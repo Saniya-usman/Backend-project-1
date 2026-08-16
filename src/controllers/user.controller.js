@@ -18,7 +18,7 @@ const registerUser = asyncHandler( async (req, res) =>{
 
      //1. Get User details from frontend
      const {fullName, email, username, password} = req.body
-     console.log("email" , email);
+     //console.log("email" , email);
 
      //2. validation fields
      if ([fullName, email, username, password].some((field)=>
@@ -35,6 +35,7 @@ const registerUser = asyncHandler( async (req, res) =>{
           throw new ApiError(409, "User with email or username already exists")
       }
        
+       
       //4. Get image paths
       const avatarLocalPath = req.files?.avatar?.[0]?.path;
       const coverImageLocalPath = req.files?.coverImage?.[0]?.path;
@@ -45,6 +46,7 @@ const registerUser = asyncHandler( async (req, res) =>{
       }
 
       //6. Upload Images to cloudinary
+      console.log("Avatar local path:", avatarLocalPath);
       const avatar = await uploadOnCloudinary(avatarLocalPath)
       const coverImage = await uploadOnCloudinary(coverImageLocalPath)
 
